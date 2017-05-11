@@ -3,4 +3,5 @@ $(document).ready(function() {
     $("#signin").attr("href", "../signin");
     $("#register").attr("href", "../register");
     $("#myAccount").attr("href", "../myAccount");
+    $("#signout").attr("href", "../signout");
 });

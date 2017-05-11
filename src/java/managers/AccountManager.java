@@ -32,7 +32,7 @@ public class AccountManager implements ServletContextListener{
         
     }
     
-    private boolean accountExists(String username) {
+    public boolean accountExists(String username) {
         return accs.accountExists(username);
     }
 
@@ -48,12 +48,20 @@ public class AccountManager implements ServletContextListener{
             return exists;
         }
     }   
+    
+    public Account find(int id) {
+        return accs.find(id);
+    }
+    
+    public void update(Account user) {
+        accs.edit(user);
+    }
 
     public boolean validateAccountInformation(String username, String password) {
         return accs.validateAccountInformation(username, password);
     }
     
-    public Account getUser(String username, String password) {
+    public Account getUser(String username) {
         Account user = accs.getUser(username);
         return user;
     }

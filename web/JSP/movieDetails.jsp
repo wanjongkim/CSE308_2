@@ -35,9 +35,6 @@
                         <a class="anchor" href="">MOVIE TIMES + TICKETS</a>
                     </div>
                     <div class="col-xs-2">
-                        <a class="anchor" href="trailers/${movie.title}">TRAILERS</a>
-                    </div>
-                    <div class="col-xs-2">
                         <a class="anchor" href="photos/${movie.title}">PHOTOS + POSTERS</a>
                     </div>
                     <div class="col-xs-2">

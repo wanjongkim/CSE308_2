@@ -13,18 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import managers.AccountManager;
 import models.Account;
 
 public class Logout extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String homepage = "JSP/index.jsp";
         HttpSession s = request.getSession();
         Account user = (Account) s.getAttribute("user");
         user.setLoggedIn((short)0);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-        dispatcher.forward(request, response);
+        AccountManager am = (AccountManager) request.getServletContext().getAttribute("accountManager");
+        am.update(user);
+        response.sendRedirect("http://localhost:8080/InDango/index");
     }
 
     @Override

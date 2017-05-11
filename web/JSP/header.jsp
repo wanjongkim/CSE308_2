@@ -38,7 +38,7 @@
                             <a id="signin" href="signin">Sign In</a>
                         </c:if>
                         <c:if test="${user.loggedIn ne 0}">
-                            <a href="signout">Sign Out</a>
+                            <a id="signout" href="signout">Sign Out</a>
                         </c:if>
                         </li>
                     </ul>

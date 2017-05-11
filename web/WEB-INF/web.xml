@@ -37,12 +37,12 @@
         <servlet-class>controllers.photosPage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>trailersPage</servlet-name>
-        <servlet-class>controllers.trailersPage</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AccountPage</servlet-name>
         <servlet-class>controllers.AccountPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Update</servlet-name>
+        <servlet-class>controllers.Update</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexPage</servlet-name>
@@ -81,12 +81,12 @@
         <url-pattern>/movie/photos/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>trailersPage</servlet-name>
-        <url-pattern>/movie/trailers/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AccountPage</servlet-name>
         <url-pattern>/myAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Update</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

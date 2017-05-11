@@ -12,6 +12,7 @@
         <link href="resources/css/layout.css" rel="stylesheet" type="text/css">
         <link href="resources/css/colors.css" rel="stylesheet" type="text/css">
         <link href="resources/css/fonts.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -21,8 +22,52 @@
     </head>
     <body class="blue">
         <%@include file="header.jsp" %>
+        <jsp:useBean id="err" class="models.Error" scope="request" />
         <div class="container extra-space-top">
-            <h1>My Account: ${user.username}</h1>
+            <div class="well well-sm">
+                <h1 class="fjalla">ACCOUNT INFORMATION</h1>
+                <hr>
+                <p style="color:red">${err.message}</p>
+                <form class="form-horizontal" method="POST" action="update">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="username">Username</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="info-username" class="form-control" name="username" value="${user.username}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="password">Password</label>
+                        <div class="col-sm-7">
+                            <input type="password" id="info-password" class="form-control" name="password" value="">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="firstName">First Name</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="info-firstname" class="form-control" name="firstname" value="${user.firstName}">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="username">Last name</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="info-lastname" class="form-control" name="lastname" value="${user.lastName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="info-email" class="form-control" name="email" value="${user.email}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-1">
+                            <button type="submit" class="btn btn-default">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <!-- let the person change some information -->
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 

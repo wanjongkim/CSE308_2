@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
         boolean logInSuccessful = as.validateAccountInformation(username, password);
         if(logInSuccessful) {
             HttpSession s = request.getSession();
-            Account user = as.getUser(username, password);
+            Account user = as.getUser(username);
             user.setLoggedIn((short) 1);
             s.setAttribute("user", user);
             response.sendRedirect(homepage);
