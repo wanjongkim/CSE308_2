@@ -7,39 +7,30 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
-import managers.AccountManager;
 
-/**
- *
- * @author Shawn
- */
-public class Login extends HttpServlet {
-    
+public class AccountPage extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String homepage = "index";
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        AccountManager as = (AccountManager) request.getServletContext().getAttribute("accountManager");
-        boolean logInSuccessful = as.validateAccountInformation(username, password);
-        if(logInSuccessful) {
-            HttpSession s = request.getSession();
-            Account user = as.getUser(username, password);
-            user.setLoggedIn((short) 1);
-            s.setAttribute("user", user);
-            response.sendRedirect(homepage);
+        //show the account information
+        //first check if we have user info in session
+        HttpSession sess = request.getSession();
+        
+        if(sess.getAttribute("user") == null || ((Account)sess.getAttribute("user")).getLoggedIn() == (short)0) {
+            //redirect to login
+            response.sendRedirect("signin");
         }
         else {
-            //display error
+            RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/myAccount.jsp");
+            dispatcher.forward(request, response);
         }
-        
     }
 
     @Override

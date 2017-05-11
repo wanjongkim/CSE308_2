@@ -52,6 +52,12 @@ public class AccountManager implements ServletContextListener{
     public boolean validateAccountInformation(String username, String password) {
         return accs.validateAccountInformation(username, password);
     }
+    
+    public Account getUser(String username, String password) {
+        Account user = accs.getUser(username);
+        return user;
+    }
+    
     /*
     private String hashPassword(String password) {
         

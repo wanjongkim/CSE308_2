@@ -49,5 +49,10 @@ public class AccountDAO extends AbstractDAO<Account> {
         Account databaseAccountInfo = accounts.get(0);
         return databaseAccountInfo.getUsername().equalsIgnoreCase(username) && databaseAccountInfo.getPassword().equalsIgnoreCase(password);
     }
-    
+
+    public Account getUser(String username) {
+        Query query = em.createNativeQuery("SELECT * FROM accounts WHERE username='" + username + "';", Account.class);
+        Account user = (Account) query.getSingleResult();
+        return user;
+    }
 }

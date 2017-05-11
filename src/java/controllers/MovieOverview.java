@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import managers.MovieManager;
 import models.Movie;
 import models.PicVideo;
@@ -35,24 +36,25 @@ public class MovieOverview extends HttpServlet {
         String movie = uri.substring(uri.lastIndexOf("/")+1, uri.length());
         movie = movie.replaceAll("%20", " ");
         PlayingMovie pm = mm.findMovie(movie);
+        HttpSession sess = request.getSession();
         RequestDispatcher dispatcher = request.getRequestDispatcher(movieOverview);
         if(pm != null) {
             pm.setRuntime(convert(pm.getRuntime()));
-            request.setAttribute("movie", pm);
+            sess.setAttribute("movie", pm);
             //put pictures and videos into something
             String pics = pm.getPicture();
             String vids = pm.getVideo();
             ArrayList converted = convertPicString(pics);
             ArrayList converted1 = convertVidString(vids);
             PicVideo pv = new PicVideo(converted, converted1);
-            request.setAttribute("pv", pv);
+            sess.setAttribute("pv", pv);
             dispatcher.forward(request, response);
             return;
         }
         else {
             Movie m = mm.findMovie2(movie);
             if(m != null) {
-                request.setAttribute("movie", m);
+                sess.setAttribute("movie", m);
                 dispatcher.forward(request, response);
                 return;
             }

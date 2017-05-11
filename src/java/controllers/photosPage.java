@@ -7,38 +7,28 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Account;
-import managers.AccountManager;
+import models.Movie;
+import models.PicVideo;
+import models.PlayingMovie;
 
 /**
  *
  * @author Shawn
  */
-public class Login extends HttpServlet {
-    
+public class photosPage extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String homepage = "index";
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        AccountManager as = (AccountManager) request.getServletContext().getAttribute("accountManager");
-        boolean logInSuccessful = as.validateAccountInformation(username, password);
-        if(logInSuccessful) {
-            HttpSession s = request.getSession();
-            Account user = as.getUser(username, password);
-            user.setLoggedIn((short) 1);
-            s.setAttribute("user", user);
-            response.sendRedirect(homepage);
-        }
-        else {
-            //display error
-        }
+        System.out.println("IS IT WORKING");
+        String photosPage = "../../JSP/photos.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(photosPage);
+        dispatcher.forward(request, response);
         
     }
 

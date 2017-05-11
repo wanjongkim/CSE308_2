@@ -27,19 +27,15 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Movies</a></li>
                         <li><a href="#">Movie news</a></li>
-                        <li><a href="#">My Account</a></li>
+                        <li><a id="myAccount" href="myAccount">My Account</a></li>
                         <li>
                         <c:if test="${user.loggedIn eq 0}">
-                            <a href="register">Register</a>
+                            <a id="register" href="register">Register</a>
                         </c:if>
                         </li>
                         <li>
                         <c:if test="${user.loggedIn eq 0}">
-                            <a href="signin">Sign In</a>
-                        </c:if>
-                        <c:if test="${user.loggedIn ne 0}">
-                            <!--Place username here!-->
-                            <!-- <p></p> -->
+                            <a id="signin" href="signin">Sign In</a>
                         </c:if>
                         <c:if test="${user.loggedIn ne 0}">
                             <a href="signout">Sign Out</a>
