@@ -21,6 +21,7 @@
     </head>
     <body class="blue">
         <jsp:useBean id="movie" class="models.PlayingMovie" scope="request" />
+        <jsp:useBean id="pv" class="models.PicVideo" scope="request" />
         <%@include file="header.jsp" %>
         <div class="container extra-space-top">
             <div class="menu">
@@ -28,34 +29,48 @@
                 <br>
                 <div class="row">
                     <div class="col-xs-2">
-                        <h5>OVERVIEW</h5>
+                        <a class="anchor" href="">OVERVIEW</a>
                     </div>
                     <div class="col-xs-2">
-                        <h5>MOVIE TIMES + TICKETS</h5>
+                        <a class="anchor" href="">MOVIE TIMES + TICKETS</a>
                     </div>
                     <div class="col-xs-2">
-                        <h5>SYNOPSIS</h5>
+                        <a class="anchor" href="">TRAILERS</a>
                     </div>
                     <div class="col-xs-2">
-                        <h5>TRAILERS</h5>
+                        <a class="anchor" href="">PHOTOS + POSTERS</a>
                     </div>
                     <div class="col-xs-2">
-                        <h5>PHOTOS + POSTERS</h5>
+                        <a class="anchor" href="">CAST + CREW</a>
                     </div>
                     <div class="col-xs-2">
-                        <h5>CAST + CREW</h5>
+                        <a class="anchor" href="rate">RATE IT</a>
                     </div>
                 </div>
             </div>
-            <div class="pull-left">
-                <div class="poster">
-                    <img class="img-responsive" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" >
+            <div class="row">
+                <div class="poster col-xs-4">
+                    <img class="img-responsive" src="https://image.tmdb.org/t/p/w500${movie.posterPath}">
+                    <h5>Homepage: <a class="anchor" target="_blank" href="${movie.homepage}">${movie.homepage}</a></h5>
                     <h5>Release Date: ${movie.releaseDate}</h5>
                     <h5>Runtime: ${movie.runtime}</h5>
+                    <h5>Genre: ${movie.genre.genre}</h5>
+                    <i><h5>Rating: ${movie.rating}/10  ${movie.ratedPeople} Fan Ratings</h5></i>
+
                 </div>
-            </div>
-            <div class="pull-right">
-                <iframe src="http://www.youtube.com/embed/${movie.trailer}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                <div class="col-xs-8">
+                    <iframe src="http://www.youtube.com/embed/${movie.trailer}" width="680" height="315" frameborder="0" allowfullscreen></iframe>
+                    <h4>${movie.plot}</h4>
+                    <br>
+                    <!-- pictures -->
+                    <c:forEach var="pic" items="${pv.picList}" begin="1" end="2">
+                        <div class="col-xs-4" style="width: 35%; height: 25%;">
+
+                            <img class="img-responsive" src="https://image.tmdb.org/t/p/w500/${pic}">
+                        </div>
+                    </c:forEach>
+
+                </div>
             </div>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
