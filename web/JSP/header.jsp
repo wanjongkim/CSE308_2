@@ -15,7 +15,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index">InDango</a>
+                    <a class="navbar-brand" href="index" id="homepageLink">InDango</a>
                 </div>
                 <div class="collapse navbar-collapse" id="header-nav-collapsable">
                     <form class="navbar-form navbar-left form-inline" method="POST" action="#">

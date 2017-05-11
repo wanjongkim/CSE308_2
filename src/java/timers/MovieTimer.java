@@ -38,8 +38,8 @@ public class MovieTimer {
     private int pageIndex = 1000; 
     private final String key = "318fa165649de5b30b74568e44512dce";
     
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1", persistent = false)
-    //@Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
     public void myTimer() {
         retrieveMovieInfoFromServer();
     }
