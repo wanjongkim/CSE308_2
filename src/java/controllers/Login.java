@@ -8,6 +8,7 @@ package controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
 import managers.AccountManager;
+import models.Error;
+import models.TempAccountInfo;
 
 /**
  *
@@ -35,9 +38,16 @@ public class Login extends HttpServlet {
             user.setLoggedIn((short) 1);
             s.setAttribute("user", user);
             response.sendRedirect(homepage);
+            return;
         }
         else {
-            //display error
+            //display error'
+            Error err = new Error("Login failed");
+            TempAccountInfo temp = new TempAccountInfo();
+            temp.setUsername(username);
+            request.getSession().setAttribute("err2", err);
+            request.getSession().setAttribute("temp", temp);
+            response.sendRedirect("signin");
         }
         
     }

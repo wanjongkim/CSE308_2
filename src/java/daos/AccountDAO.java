@@ -46,6 +46,9 @@ public class AccountDAO extends AbstractDAO<Account> {
     
     public boolean validateAccountInformation(String username, String password) {
         List<Account> accounts = getAccountInfoListByUsername(username);
+        if(accounts.size() <=0) {
+            return false;
+        }
         Account databaseAccountInfo = accounts.get(0);
         return databaseAccountInfo.getUsername().equalsIgnoreCase(username) && databaseAccountInfo.getPassword().equalsIgnoreCase(password);
     }

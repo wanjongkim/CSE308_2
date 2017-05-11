@@ -14,25 +14,28 @@
     </head>
     <body class="blue">
         <%@include file="header.jsp" %>
+        <jsp:useBean id="err3" class="models.Error" scope="request" />
+        <jsp:useBean id="temp3" class="models.TempAccountInfo" scope="request" />
         <div class="container extra-space-top">
             <div class="center well" >
+                <p style="color: red">${err3.message}</p>
                 <form class="form-horizontal" method="POST" action="create/account">
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="signin-username">Username</label>
                         <div class="col-sm-7">
-                            <input type="text" id="signup-username" class="form-control" name="username">
+                            <input type="text" id="signup-username" class="form-control" name="username" value="${temp3.username}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="signin-firstname">First Name</label>
                         <div class="col-sm-7">
-                            <input type="text" id="signup-firstname" class="form-control" name="firstName">
+                            <input type="text" id="signup-firstname" class="form-control" name="firstName" value="${temp3.firstName}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="signin-lastname">Last Name</label>
                         <div class="col-sm-7">
-                            <input type="text" id="signup-lastname" class="form-control" name="lastName">
+                            <input type="text" id="signup-lastname" class="form-control" name="lastName" value="${temp3.lastName}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -50,7 +53,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="signup-email">Email</label>
                         <div class="col-sm-7">
-                            <input type="email" id="signup-email" class="form-control" name="email">
+                            <input type="email" id="signup-email" class="form-control" name="email" value="${temp3.email}">
                         </div>
                     </div>
                     <div class="form-group">

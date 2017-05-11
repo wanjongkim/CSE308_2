@@ -14,13 +14,16 @@
     </head>
     <body class="blue">
         <%@include file="header.jsp" %>
+        <jsp:useBean id="err2" class="models.Error" scope="session" />
+        <jsp:useBean id="temp" class="models.TempAccountInfo" scope="session" />
         <div class="container extra-space-top">
             <div class="center well" >
+                <p style="color:red">${err2.message}</p>
                 <form class="form-horizontal" method="POST" action="login">
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="signin-username">Username</label>
                         <div class="col-sm-8">
-                            <input type="text" id="signin-username" class="form-control" name="username">
+                            <input type="text" id="signin-username" class="form-control" name="username" value="${temp.username}">
                         </div>
                     </div>
                     <div class="form-group">

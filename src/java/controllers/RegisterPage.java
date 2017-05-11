@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
+import models.TempAccountInfo;
+import models.Error;
 
 /**
  *
@@ -30,6 +32,16 @@ public class RegisterPage extends HttpServlet {
         HttpSession session = request.getSession();
         Account user = (Account) session.getAttribute("user");
         if(user == null || user.getLoggedIn() == notLoggedIn) {
+            Error err = (Error) request.getSession().getAttribute("err");
+           TempAccountInfo temp = (TempAccountInfo) request.getSession().getAttribute("temp");
+           if(err!=null) {
+               request.setAttribute("err3", err);
+               request.getSession().removeAttribute("err");
+           }
+           if (temp!=null) {
+               request.setAttribute("temp3", temp);
+               request.getSession().removeAttribute("temp");
+           }
             RequestDispatcher dispatcher = request.getRequestDispatcher(registerPageURL);
             dispatcher.forward(request, response);
         }
