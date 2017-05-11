@@ -7,8 +7,11 @@ package daos;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import models.Genre;
+import models.Movie;
 
 /**
  *
@@ -27,6 +30,17 @@ public class GenreDAO extends AbstractDAO<Genre> {
 
     public GenreDAO() {
         super(Genre.class);
+    }
+    
+    public Genre findGenre(String genreName) {
+        Query query = em.createNativeQuery("SELECT * FROM genre WHERE genre='" + genreName + "';", Genre.class);
+        Genre genre = null;
+        try {
+            genre = (Genre) query.getSingleResult();
+        } catch(NoResultException ex) {
+            return null;
+        }
+        return genre;
     }
     
 }

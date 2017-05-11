@@ -28,6 +28,8 @@ import org.json.simple.parser.JSONParser;
 public class ServerToServerTimer {
 
     @EJB
+    GenreDAO gDAO;
+    @EJB
     PlayingMovieDAO pmDAO;
     @EJB
     MovieDAO mDAO;
@@ -117,35 +119,91 @@ public class ServerToServerTimer {
                 List<String> l = new ArrayList();
                 for(int j=0; j<genres.size(); j++) {
                     JSONObject o = (JSONObject) genres.get(j);
-                    l.add(o.get("name").toString());
+                    if(o.get("name")!=null) {
+                        l.add(o.get("name").toString().toLowerCase());
+                    }
                 }
                 JSONObject videos = (JSONObject) entireJSON2.get("videos");
                 JSONArray videoResults = (JSONArray) videos.get("results");
-                List<String> l2 = new ArrayList();
+                String videoPaths = "none";
+                String trailerPath = "none";
+                boolean firstTime = true;
                 for(int j=0; j<videoResults.size(); j++) {
                     JSONObject o = (JSONObject) videoResults.get(j);
                     if(o.get("key")!=null) {
                         String videoKey = o.get("key").toString();
-                        l2.add(videoKey);
+                        if(firstTime) {
+                            videoPaths = "";
+                            videoPaths = videoPaths.concat(videoKey);
+                            trailerPath = videoKey;
+                            firstTime = false;
+                        }
+                        else {
+                            videoPaths = videoPaths.concat(", " + videoKey);
+                        }
+                    }
+                    if(j>=3) {
+                        break;
                     }
                 }
+                videoPaths = videoPaths.trim();
+                String genre = "";
+                for(int j=0; j<l.size(); j++) {
+                    if(j == 0)
+                        genre = genre.concat(l.get(j));
+                    else
+                        genre = genre.concat(", " + l.get(j));
+                }
+                genre = genre.trim();
                 JSONObject images = (JSONObject) entireJSON2.get("images");
                 JSONArray imageResults = (JSONArray) images.get("backdrops");
-                List<String> l3 = new ArrayList();
+                String imagePaths = "none";
+                boolean firstTime2 = true;
                 for(int j=0; j<imageResults.size(); j++) {
                     JSONObject o = (JSONObject) imageResults.get(j);
-                    String imageKey = o.get("file_path").toString();
-                    l3.add(imageKey);
+                    if(o.get("file_path")!=null) {
+                        String imageKey = o.get("file_path").toString();
+                        if(firstTime2) {
+                            imagePaths = "";
+                            imagePaths = imagePaths.concat(imageKey);
+                            firstTime2 = false;
+                        }
+                        else {
+                            imagePaths = imagePaths.concat(", " + imageKey);
+                        }
+                    }
+                    if(j>=3) {
+                        break;
+                    }
                 }
-                String trailer = "";
-                if(l2.size() >= 1) {
-                    trailer = l2.get(0);
-                }
-                PlayingMovie pm = new PlayingMovie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailer);
                 
-                Genre ge = new Genre(9, "fantasy");
-                pm.setGenre(ge);
+                PlayingMovie pm = new PlayingMovie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailerPath, videoPaths, imagePaths);
+                
+                //find if this genre already exists
+                Genre gen = gDAO.findGenre(genre);
+                
+                if(gen == null && genre != null && !genre.equals("")) {
+                    gen = new Genre(genre);
+                    gDAO.create(gen);
+                }
+                else {
+                    gen = gDAO.findGenre("none");
+                    if(gen == null) {
+                        gen = new Genre("none");
+                        gDAO.create(gen);
+                    }
+                }
+                String movieTitle = title;
+                movieTitle = movieTitle.replaceAll("'", "''");
+                pm.setGenre(gen);
+                
                 pmDAO.create(pm);
+                PlayingMovie pm2 = pmDAO.findMovie(movieTitle);
+                if(pm2 != null) {
+                    gen.getPlayingMovieSet().add(pm);
+                }
+                gDAO.edit(gen);
+                
                 con2.disconnect();
                 br2.close();
             }

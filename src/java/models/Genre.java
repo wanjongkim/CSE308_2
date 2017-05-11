@@ -36,12 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Genre.findByGenre", query = "SELECT g FROM Genre g WHERE g.genre = :genre")})
 public class Genre implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
-    private Set<PlayingMovie> playingMoviesSet;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
-    private Set<PlayingMovie> playingmovieSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,17 +44,23 @@ public class Genre implements Serializable {
     private Integer genreID;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 150)
     @Column(name = "genre")
     private String genre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
     private Set<Movie> movieSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+    private Set<PlayingMovie> playingMovieSet;
 
     public Genre() {
     }
 
     public Genre(Integer genreID) {
         this.genreID = genreID;
+    }
+    
+    public Genre(String genre) {
+        this.genre = genre;
     }
 
     public Genre(Integer genreID, String genre) {
@@ -93,6 +93,15 @@ public class Genre implements Serializable {
         this.movieSet = movieSet;
     }
 
+    @XmlTransient
+    public Set<PlayingMovie> getPlayingMovieSet() {
+        return playingMovieSet;
+    }
+
+    public void setPlayingMovieSet(Set<PlayingMovie> playingMovieSet) {
+        this.playingMovieSet = playingMovieSet;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -116,24 +125,6 @@ public class Genre implements Serializable {
     @Override
     public String toString() {
         return "models.Genre[ genreID=" + genreID + " ]";
-    }
-
-    @XmlTransient
-    public Set<PlayingMovie> getPlayingmovieSet() {
-        return playingmovieSet;
-    }
-
-    public void setPlayingmovieSet(Set<PlayingMovie> playingmovieSet) {
-        this.playingmovieSet = playingmovieSet;
-    }
-
-    @XmlTransient
-    public Set<PlayingMovie> getPlayingMoviesSet() {
-        return playingMoviesSet;
-    }
-
-    public void setPlayingMoviesSet(Set<PlayingMovie> playingMoviesSet) {
-        this.playingMoviesSet = playingMoviesSet;
     }
     
 }

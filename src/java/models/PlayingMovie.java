@@ -41,7 +41,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "PlayingMovie.findByImdbID", query = "SELECT p FROM PlayingMovie p WHERE p.imdbID = :imdbID")
     , @NamedQuery(name = "PlayingMovie.findByStatus", query = "SELECT p FROM PlayingMovie p WHERE p.status = :status")
     , @NamedQuery(name = "PlayingMovie.findByRatedPeople", query = "SELECT p FROM PlayingMovie p WHERE p.ratedPeople = :ratedPeople")
-    , @NamedQuery(name = "PlayingMovie.findByTrailer", query = "SELECT p FROM PlayingMovie p WHERE p.trailer = :trailer")})
+    , @NamedQuery(name = "PlayingMovie.findByTrailer", query = "SELECT p FROM PlayingMovie p WHERE p.trailer = :trailer")
+    , @NamedQuery(name = "PlayingMovie.findByVideo", query = "SELECT p FROM PlayingMovie p WHERE p.video = :video")
+    , @NamedQuery(name = "PlayingMovie.findByPicture", query = "SELECT p FROM PlayingMovie p WHERE p.picture = :picture")})
 public class PlayingMovie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -104,6 +106,16 @@ public class PlayingMovie implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "trailer")
     private String trailer;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(name = "video")
+    private String video;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "picture")
+    private String picture;
     @JoinColumn(name = "genre", referencedColumnName = "genreID")
     @ManyToOne(optional = false)
     private Genre genre;
@@ -115,7 +127,7 @@ public class PlayingMovie implements Serializable {
         this.movieID = movieID;
     }
     
-    public PlayingMovie(String title, String rating, String releaseDate, String runtime, String plot, String homepage, String posterPath, String imdbID, String status, int ratedPeople, String trailer) {
+    public PlayingMovie(String title, String rating, String releaseDate, String runtime, String plot, String homepage, String posterPath, String imdbID, String status, int ratedPeople, String trailer, String video, String picture) {
         
         this.title = title;
         this.rating = rating;
@@ -128,9 +140,11 @@ public class PlayingMovie implements Serializable {
         this.status = status;
         this.ratedPeople = ratedPeople;
         this.trailer = trailer;
+        this.video = video;
+        this.picture = picture;
     }
 
-    public PlayingMovie(Integer movieID, String title, String rating, String releaseDate, String runtime, String plot, String homepage, String posterPath, String imdbID, String status, int ratedPeople, String trailer) {
+    public PlayingMovie(Integer movieID, String title, String rating, String releaseDate, String runtime, String plot, String homepage, String posterPath, String imdbID, String status, int ratedPeople, String trailer, String video, String picture) {
         this.movieID = movieID;
         this.title = title;
         this.rating = rating;
@@ -143,6 +157,8 @@ public class PlayingMovie implements Serializable {
         this.status = status;
         this.ratedPeople = ratedPeople;
         this.trailer = trailer;
+        this.video = video;
+        this.picture = picture;
     }
 
     public Integer getMovieID() {
@@ -239,6 +255,22 @@ public class PlayingMovie implements Serializable {
 
     public void setTrailer(String trailer) {
         this.trailer = trailer;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Genre getGenre() {

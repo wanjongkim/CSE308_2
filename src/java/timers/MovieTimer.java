@@ -5,6 +5,7 @@
  */
 package timers;
 
+import daos.GenreDAO;
 import daos.MovieDAO;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,13 +30,16 @@ import org.json.simple.parser.JSONParser;
  */
 @Singleton
 public class MovieTimer {
-
+    
+    @EJB
+    GenreDAO gDAO;
     @EJB
     MovieDAO mDAO;
     private int pageIndex = 1000; 
     private final String key = "318fa165649de5b30b74568e44512dce";
     
     @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
     public void myTimer() {
         retrieveMovieInfoFromServer();
     }
@@ -112,28 +116,92 @@ public class MovieTimer {
                 if(overview == null || overview.equalsIgnoreCase("")) {
                     overview = "unknown";
                 }
+                JSONArray genres = (JSONArray) entireJSON2.get("genres");
+                List<String> l = new ArrayList();
+                for(int j=0; j<genres.size(); j++) {
+                    JSONObject o = (JSONObject) genres.get(j);
+                    if(o.get("name")!=null) {
+                        l.add(o.get("name").toString().toLowerCase());
+                    }
+                }
                 JSONObject videos = (JSONObject) entireJSON2.get("videos");
                 JSONArray videoResults = (JSONArray) videos.get("results");
-                List<String> l2 = new ArrayList();
+                String videoPaths = "none";
+                String trailerPath = "none";
+                boolean firstTime = true;
                 for(int j=0; j<videoResults.size(); j++) {
                     JSONObject o = (JSONObject) videoResults.get(j);
                     if(o.get("key")!=null) {
                         String videoKey = o.get("key").toString();
-                        l2.add(videoKey);
+                        if(firstTime) {
+                            videoPaths = "";
+                            videoPaths = videoPaths.concat(videoKey);
+                            trailerPath = videoKey;
+                            firstTime = false;
+                        }
+                        else {
+                            videoPaths = videoPaths.concat(", " + videoKey);
+                        }
+                    }
+                    if(j>=3) {
+                        break;
                     }
                 }
-                String trailer = "";
-                if(l2.size() >= 1) {
-                    trailer = l2.get(0);
+                videoPaths = videoPaths.trim();
+                String genre = "";
+                for(int j=0; j<l.size(); j++) {
+                    if(j == 0)
+                        genre = genre.concat(l.get(j));
+                    else
+                        genre = genre.concat(", " + l.get(j));
+                }
+                genre = genre.trim();
+                JSONObject images = (JSONObject) entireJSON2.get("images");
+                JSONArray imageResults = (JSONArray) images.get("backdrops");
+                String imagePaths = "none";
+                boolean firstTime2 = true;
+                for(int j=0; j<imageResults.size(); j++) {
+                    JSONObject o = (JSONObject) imageResults.get(j);
+                    if(o.get("file_path")!=null) {
+                        String imageKey = o.get("file_path").toString();
+                        if(firstTime2) {
+                            imagePaths = "";
+                            imagePaths = imagePaths.concat(imageKey);
+                            firstTime2 = false;
+                        }
+                        else {
+                            imagePaths = imagePaths.concat(", " + imageKey);
+                        }
+                    }
+                    if(j>=3) {
+                        break;
+                    }
+                }
+                Movie pm = new Movie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailerPath, imagePaths, videoPaths);
+                
+                Genre gen = gDAO.findGenre(genre);
+                
+                if(gen == null && genre != null && !genre.equals("")) {
+                    gen = new Genre(genre);
+                    gDAO.create(gen);
                 }
                 else {
-                    trailer = "none";
+                    gen = gDAO.findGenre("none");
+                    if(gen == null) {
+                        gen = new Genre("none");
+                        gDAO.create(gen);
+                    }
                 }
-                Movie pm = new Movie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailer);
-                
-                Genre ge = new Genre(9, "fantasy");
-                pm.setGenre(ge);
+                String movieTitle = title;
+                movieTitle = movieTitle.replaceAll("'", "''");
+                pm.setGenre(gen);
                 mDAO.create(pm);
+                Movie pm2 = mDAO.findMovie(movieTitle);
+                if(pm2 != null) {
+                    gen.getMovieSet().add(pm);
+                }
+                gDAO.edit(gen);
+                
                 con2.disconnect();
                 br2.close();
             }
@@ -141,5 +209,6 @@ public class MovieTimer {
         } catch(Exception ex) {
             System.out.println(ex);
         }
+        System.out.println("Finished Updating");
     }
 }
