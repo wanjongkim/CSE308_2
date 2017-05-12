@@ -37,7 +37,6 @@ public class Update extends HttpServlet {
             //invalid just go back.
             Error err = new Error("Username exists");
             request.setAttribute("err", err);
-            System.out.println("ERrraora");
             RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/myAccount.jsp");
             dispatcher.forward(request, response);
             return;

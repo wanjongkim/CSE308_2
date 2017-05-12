@@ -25,7 +25,7 @@
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Movies</a></li>
+                        <li><a id="allMovies" href="allMovies?page=1">Movies</a></li>
                         <li><a href="#">Movie news</a></li>
                         <li><a id="myAccount" href="myAccount">My Account</a></li>
                         <li>

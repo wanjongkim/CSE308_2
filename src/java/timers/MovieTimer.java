@@ -38,8 +38,8 @@ public class MovieTimer {
     private int pageIndex = 1000; 
     private final String key = "318fa165649de5b30b74568e44512dce";
     
-    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1", persistent = false)
-    @Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1-3, 11-13, 21-23, 31-33, 41-43, 51-53", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
     public void myTimer() {
         retrieveMovieInfoFromServer();
     }
@@ -177,26 +177,79 @@ public class MovieTimer {
                         break;
                     }
                 }
+                //check if the language is appropriate if not we just throw the movie out
+                boolean valid = title.matches("\\A\\p{ASCII}*\\z");
+                if(!valid) {
+                    continue;
+                }
+                boolean valid1 = releaseDate.matches("\\A\\p{ASCII}*\\z");
+                if(!valid1) {
+                    continue;
+                }
+                boolean valid2 = runtime.matches("\\A\\p{ASCII}*\\z");
+                if(!valid2) {
+                    continue;
+                }
+                boolean valid3 = overview.matches("\\A\\p{ASCII}*\\z");
+                if(!valid3) {
+                    System.out.println("Test3");
+                    continue;
+                }
+                boolean valid4 = homepage.matches("\\A\\p{ASCII}*\\z");
+                if(!valid4) {
+                    continue;
+                }
+                boolean valid5 = posterPath.matches("\\A\\p{ASCII}*\\z");
+                if(!valid5) {
+                    continue;
+                }
+                boolean valid6 = imdbID.matches("\\A\\p{ASCII}*\\z");
+                if(!valid6) {
+                    continue;
+                }
+                boolean valid7 = status.matches("\\A\\p{ASCII}*\\z");
+                if(!valid7) {
+                    continue;
+                }
+                boolean valid8 = trailerPath.matches("\\A\\p{ASCII}*\\z");
+                if(!valid8) {
+                    continue;
+                }
+                boolean valid9 = imagePaths.matches("\\A\\p{ASCII}*\\z");
+                if(!valid9) {
+                    continue;
+                }
+                boolean valid10 = videoPaths.matches("\\A\\p{ASCII}*\\z");
+                if(!valid10) {
+                    continue;
+                }
                 Movie pm = new Movie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailerPath, imagePaths, videoPaths);
                 
                 Genre gen = gDAO.findGenre(genre);
-                
-                if(gen == null && genre != null && !genre.equals("")) {
-                    gen = new Genre(genre);
-                    gDAO.create(gen);
-                }
-                else {
+                if(genre == null) {
                     gen = gDAO.findGenre("none");
                     if(gen == null) {
                         gen = new Genre("none");
                         gDAO.create(gen);
                     }
                 }
+                else if(genre.equals("")) {
+                    gen = gDAO.findGenre("none");
+                    if(gen == null) {
+                        gen = new Genre("none");
+                        gDAO.create(gen);
+                    }
+                }
+                else if(gen == null) {
+                    gen = new Genre(genre);
+                    gDAO.create(gen);    
+                }
                 String movieTitle = title;
                 movieTitle = movieTitle.replaceAll("'", "''");
                 pm.setGenre(gen);
                 mDAO.create(pm);
                 Movie pm2 = mDAO.findMovie(movieTitle);
+                
                 if(pm2 != null) {
                     gen.getMovieSet().add(pm);
                 }

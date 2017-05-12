@@ -178,21 +178,23 @@ public class ServerToServerTimer {
                 }
                 
                 PlayingMovie pm = new PlayingMovie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailerPath, videoPaths, imagePaths);
-                
                 //find if this genre already exists
                 Genre gen = gDAO.findGenre(genre);
                 
-                if(gen == null && genre != null && !genre.equals("")) {
-                    gen = new Genre(genre);
-                    gDAO.create(gen);
-                }
-                else {
+                if(genre == null) {
                     gen = gDAO.findGenre("none");
                     if(gen == null) {
                         gen = new Genre("none");
                         gDAO.create(gen);
                     }
+                    
                 }
+                else if(gen == null) {
+                    gen = new Genre(genre);
+                    gDAO.create(gen);
+                    
+                }
+                
                 String movieTitle = title;
                 movieTitle = movieTitle.replaceAll("'", "''");
                 pm.setGenre(gen);

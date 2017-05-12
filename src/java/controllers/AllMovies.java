@@ -8,53 +8,40 @@ package controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import managers.MovieManager;
-import models.Account;
-import models.PlayingMovie;
-import models.Review;
+import models.AllMovieList;
+import models.Movie;
 
 /**
  *
  * @author Shawn
  */
-public class reviewPage extends HttpServlet {
+public class AllMovies extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sess = request.getSession();
-        PlayingMovie pm = (PlayingMovie) sess.getAttribute("movie");
-        String title = pm.getTitle();
+        String pageNum = request.getQueryString();
+        int equal = pageNum.indexOf("=");
+        pageNum = pageNum.substring(equal+1, pageNum.length());
+        int pageNumI = Integer.parseInt(pageNum);
+        int index = pageNumI * 10;
         MovieManager mm = (MovieManager) request.getServletContext().getAttribute("movieManager");
-        PlayingMovie pm2 = mm.findMovie(title);
-        String reviews = "";
-        if(pm2 != null && pm2.getReviews() != null) {
-            reviews=pm2.getReviews();
+        List<Movie> l = mm.selectAll();
+        List newL = new ArrayList();
+        for(int i=index; i>=index-9; i--) {
+            newL.add(l.get(i));
         }
-        List li = new ArrayList();
-        if(reviews!=null)
-            li = convertReviews(reviews);
-        if(li!=null) {
-            Review review = new Review(li);
-            sess.setAttribute("rev", review);
-        }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../../JSP/review.jsp");
+        AllMovieList aml = new AllMovieList(newL);
+        System.out.println(aml.getL().get(0));
+        request.setAttribute("aml", aml);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/allMovies.jsp");
         dispatcher.forward(request, response);
-    }
-    
-    public List convertReviews(String reviews) {
-        List li = new ArrayList();
-        String[] s = reviews.split("\t");
-        
-        li.addAll(Arrays.asList(s));
-        return li;
     }
 
     @Override

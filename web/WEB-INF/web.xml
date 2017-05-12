@@ -44,6 +44,26 @@
         <servlet-name>Update</servlet-name>
         <servlet-class>controllers.Update</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubmitReview</servlet-name>
+        <servlet-class>controllers.SubmitReview</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllMovies</servlet-name>
+        <servlet-class>controllers.AllMovies</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Help</servlet-name>
+        <servlet-class>controllers.Help</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Support</servlet-name>
+        <servlet-class>controllers.Support</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestSupport</servlet-name>
+        <servlet-class>controllers.RequestSupport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexPage</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -87,6 +107,26 @@
     <servlet-mapping>
         <servlet-name>Update</servlet-name>
         <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitReview</servlet-name>
+        <url-pattern>/movie/reviews/submitReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllMovies</servlet-name>
+        <url-pattern>/allMovies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Help</servlet-name>
+        <url-pattern>/help</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Support</servlet-name>
+        <url-pattern>/support</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestSupport</servlet-name>
+        <url-pattern>/supportRequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

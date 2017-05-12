@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -116,6 +117,10 @@ public class PlayingMovie implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "picture")
     private String picture;
+    @Lob
+    @Size(max = 16777215)
+    @Column(name = "reviews")
+    private String reviews;
     @JoinColumn(name = "genre", referencedColumnName = "genreID")
     @ManyToOne(optional = false)
     private Genre genre;
@@ -128,7 +133,6 @@ public class PlayingMovie implements Serializable {
     }
     
     public PlayingMovie(String title, String rating, String releaseDate, String runtime, String plot, String homepage, String posterPath, String imdbID, String status, int ratedPeople, String trailer, String video, String picture) {
-        
         this.title = title;
         this.rating = rating;
         this.releaseDate = releaseDate;
@@ -271,6 +275,14 @@ public class PlayingMovie implements Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
     }
 
     public Genre getGenre() {

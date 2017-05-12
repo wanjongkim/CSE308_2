@@ -96,11 +96,21 @@
             </c:forEach>
 
         </div>
+        <br><br>
+        <div class="container-fluid" style="background-color:grey;">
+            <div class="row" style="text-align: center;">
+                <div>
+                    <a class="anchor" href="help"><h3>HELP</h3></a>
+                </div>
 
-        <div class="footer">
+                <div>
+                    <a class="anchor" href="support"><h3>SUPPORT</h3></a>
+                </div>
 
+
+            </div>
+            <br><br>
         </div>
-
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed --> 

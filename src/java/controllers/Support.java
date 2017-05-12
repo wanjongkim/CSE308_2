@@ -12,21 +12,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.Movie;
-import models.PicVideo;
-import models.PlayingMovie;
 
 /**
  *
  * @author Shawn
  */
-public class photosPage extends HttpServlet {
+public class Support extends HttpServlet {
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String photosPage = "../../JSP/photos.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(photosPage);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/support.jsp");
         dispatcher.forward(request, response);
     }
 

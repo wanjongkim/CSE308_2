@@ -37,16 +37,13 @@
                         <a class="anchor" href="">MOVIE TIMES + TICKETS</a>
                     </div>
                     <div class="col-xs-2">
-                        <a class="anchor" href="../../trailers/${movie.title}">TRAILERS</a>
-                    </div>
-                    <div class="col-xs-2">
                         <a class="anchor" href="">PHOTOS + POSTERS</a>
                     </div>
                     <div class="col-xs-2">
-                        <a class="anchor" href="">CAST + CREW</a>
+                        <a class="anchor" href="../casts/${movie.title}">CAST + CREW</a>
                     </div>
                     <div class="col-xs-2">
-                        <a class="anchor" href="../../reviews/${movie.title}">REVIEWS</a>
+                        <a class="anchor" href="../reviews/${movie.title}">REVIEWS</a>
                     </div>
                 </div>
             </div>
@@ -57,8 +54,8 @@
                     <h5>Release Date: ${movie.releaseDate}</h5>
                     <h5>Runtime: ${movie.runtime}</h5>
                     <h5>Genre: ${movie.genre.genre}</h5>
-                    <i><h5>Rating: ${movie.rating}/10  ${movie.ratedPeople} Fan Ratings</h5></i>
-
+                    <i><h5>Rating: ${movie.rating}/10</h5></i>
+                    <i></h5>${movie.ratedPeople} Fan Ratings</h5></i>
                 </div>
                 <div class="col-xs-8">
                     <div class="row">

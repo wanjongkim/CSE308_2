@@ -66,5 +66,13 @@ public class MovieManager implements ServletContextListener{
             return m;
         }
     }
+    //for movies
+    public List selectAll() {
+        return mDAO.findAll();
+    }
+    
+    public void update(PlayingMovie movie) {
+        pmd.edit(movie);
+    }
     
 }

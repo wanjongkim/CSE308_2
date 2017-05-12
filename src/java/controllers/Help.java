@@ -12,24 +12,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.Movie;
-import models.PicVideo;
-import models.PlayingMovie;
 
 /**
  *
  * @author Shawn
  */
-public class photosPage extends HttpServlet {
+public class Help extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String photosPage = "../../JSP/photos.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(photosPage);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/help.jsp");
         dispatcher.forward(request, response);
     }
 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
