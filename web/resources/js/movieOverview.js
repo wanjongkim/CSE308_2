@@ -4,5 +4,5 @@ $(document).ready(function() {
     $("#register").attr("href", "../register");
     $("#myAccount").attr("href", "../myAccount");
     $("#signout").attr("href", "../signout");
-    $("#allMovies").attr("href", "../allMovies");
+    $("#allMovies").attr("href", "../allMovies?page=1");
 });

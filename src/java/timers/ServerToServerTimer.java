@@ -176,25 +176,72 @@ public class ServerToServerTimer {
                         break;
                     }
                 }
-                
+                //check if the language is appropriate if not we just throw the movie out
+                boolean valid = title.matches("\\A\\p{ASCII}*\\z");
+                if(!valid) {
+                    continue;
+                }
+                boolean valid1 = releaseDate.matches("\\A\\p{ASCII}*\\z");
+                if(!valid1) {
+                    continue;
+                }
+                boolean valid2 = runtime.matches("\\A\\p{ASCII}*\\z");
+                if(!valid2) {
+                    continue;
+                }
+                boolean valid3 = overview.matches("\\A\\p{ASCII}*\\z");
+                if(!valid3) {
+                    continue;
+                }
+                boolean valid4 = homepage.matches("\\A\\p{ASCII}*\\z");
+                if(!valid4) {
+                    continue;
+                }
+                boolean valid5 = posterPath.matches("\\A\\p{ASCII}*\\z");
+                if(!valid5) {
+                    continue;
+                }
+                boolean valid6 = imdbID.matches("\\A\\p{ASCII}*\\z");
+                if(!valid6) {
+                    continue;
+                }
+                boolean valid7 = status.matches("\\A\\p{ASCII}*\\z");
+                if(!valid7) {
+                    continue;
+                }
+                boolean valid8 = trailerPath.matches("\\A\\p{ASCII}*\\z");
+                if(!valid8) {
+                    continue;
+                }
+                boolean valid9 = imagePaths.matches("\\A\\p{ASCII}*\\z");
+                if(!valid9) {
+                    continue;
+                }
+                boolean valid10 = videoPaths.matches("\\A\\p{ASCII}*\\z");
+                if(!valid10) {
+                    continue;
+                }
                 PlayingMovie pm = new PlayingMovie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailerPath, videoPaths, imagePaths);
                 //find if this genre already exists
                 Genre gen = gDAO.findGenre(genre);
-                
                 if(genre == null) {
                     gen = gDAO.findGenre("none");
                     if(gen == null) {
                         gen = new Genre("none");
                         gDAO.create(gen);
                     }
-                    
+                }
+                else if(genre.equals("")) {
+                    gen = gDAO.findGenre("none");
+                    if(gen == null) {
+                        gen = new Genre("none");
+                        gDAO.create(gen);
+                    }
                 }
                 else if(gen == null) {
                     gen = new Genre(genre);
-                    gDAO.create(gen);
-                    
+                    gDAO.create(gen);    
                 }
-                
                 String movieTitle = title;
                 movieTitle = movieTitle.replaceAll("'", "''");
                 pm.setGenre(gen);

@@ -38,8 +38,8 @@ public class MovieTimer {
     private int pageIndex = 1000; 
     private final String key = "318fa165649de5b30b74568e44512dce";
     
-    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1-3, 11-13, 21-23, 31-33, 41-43, 51-53", persistent = false)
-    //@Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
+    //@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "1-3, 11-13, 21-23, 31-33, 41-43, 51-53", persistent = false)
+    @Schedule(dayOfWeek = "*", month = "*", dayOfMonth = "Last", persistent = false)
     public void myTimer() {
         retrieveMovieInfoFromServer();
     }
@@ -192,7 +192,6 @@ public class MovieTimer {
                 }
                 boolean valid3 = overview.matches("\\A\\p{ASCII}*\\z");
                 if(!valid3) {
-                    System.out.println("Test3");
                     continue;
                 }
                 boolean valid4 = homepage.matches("\\A\\p{ASCII}*\\z");

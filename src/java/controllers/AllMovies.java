@@ -27,18 +27,24 @@ public class AllMovies extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pageNum = request.getQueryString();
-        int equal = pageNum.indexOf("=");
+        int equal = pageNum.indexOf("page=");
+        if(equal == -1) {
+            return;
+        }
+        else {
+            equal = equal + 4;
+        }
         pageNum = pageNum.substring(equal+1, pageNum.length());
         int pageNumI = Integer.parseInt(pageNum);
-        int index = pageNumI * 10;
+        int index = pageNumI * 60;
         MovieManager mm = (MovieManager) request.getServletContext().getAttribute("movieManager");
-        List<Movie> l = mm.selectAll();
+        List<Movie> l = mm.getAllMovies();
         List newL = new ArrayList();
-        for(int i=index; i>=index-9; i--) {
+        int pageLimit = l.size() % 60;
+        for(int i=index; i>=index-60; i--) {
             newL.add(l.get(i));
         }
-        AllMovieList aml = new AllMovieList(newL);
-        System.out.println(aml.getL().get(0));
+        AllMovieList aml = new AllMovieList(newL, pageLimit, pageNumI);
         request.setAttribute("aml", aml);
         RequestDispatcher dispatcher = request.getRequestDispatcher("JSP/allMovies.jsp");
         dispatcher.forward(request, response);

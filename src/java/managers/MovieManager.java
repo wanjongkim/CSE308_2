@@ -29,13 +29,14 @@ public class MovieManager implements ServletContextListener{
     @EJB
     MovieDAO mDAO;
     
-    private Map moviesPlaying = new HashMap();
+    private List<Movie> allMovies;
     private List<PlayingMovie> currentlyPlaying;
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         sce.getServletContext().setAttribute("movieManager", this);
         currentlyPlaying = pmd.findAll();
+        allMovies = mDAO.findAll();
     }
 
     @Override
@@ -45,6 +46,10 @@ public class MovieManager implements ServletContextListener{
     
     public List<PlayingMovie> getCurrentlyPlaying() {
         return currentlyPlaying;
+    }
+    
+    public List<Movie> getAllMovies() {
+        return allMovies;
     }
     
     public PlayingMovie findMovie(String movieName) {
