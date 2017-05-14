@@ -98,6 +98,10 @@ public class MovieManager implements ServletContextListener{
         return mDAO.findAll();
     }
     
+    public List<Movie> searchMovie(String searchQuery) {
+        return mDAO.searchMovie(searchQuery);
+    }
+    
     public void update(PlayingMovie movie) {
         pmd.edit(movie);
     }

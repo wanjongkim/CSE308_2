@@ -64,6 +64,10 @@
         <servlet-name>RequestSupport</servlet-name>
         <servlet-class>controllers.RequestSupport</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>controllers.Search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexPage</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>RequestSupport</servlet-name>
         <url-pattern>/supportRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

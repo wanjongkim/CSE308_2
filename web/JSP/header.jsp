@@ -18,9 +18,9 @@
                     <a class="navbar-brand" href="index" id="homepageLink">InDango</a>
                 </div>
                 <div class="collapse navbar-collapse" id="header-nav-collapsable">
-                    <form class="navbar-form navbar-left form-inline" method="POST" action="#">
+                    <form class="navbar-form navbar-left form-inline" method="GET" action="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>

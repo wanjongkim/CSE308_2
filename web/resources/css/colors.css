@@ -8,3 +8,16 @@
 .brown {
     background-color: brown;
 }
+
+.white {
+    background-color: white;
+}
+
+.font-white {
+    color: white;
+}
+
+.lightblack {
+    background-color:#404040; 
+    width: 75%;
+}

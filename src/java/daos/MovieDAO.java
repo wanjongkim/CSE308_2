@@ -52,4 +52,11 @@ public class MovieDAO extends AbstractDAO<Movie> {
         return movie;
     }
     
+    public List<Movie> searchMovie(String searchQuery) {
+        searchQuery = searchQuery.replaceAll("'", "''");
+        Query query = em.createNativeQuery("SELECT * FROM movies WHERE title LIKE '%" + searchQuery + "%';", Movie.class);
+        List<Movie> l = query.getResultList();
+        return l;
+    }
+    
 }

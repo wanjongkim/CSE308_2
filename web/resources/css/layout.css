@@ -13,6 +13,19 @@ body {
     width: 50%;
 }
 
+.moviesMargin {
+    margin-left: 10px;
+}
+
+.noSidePadding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.border {
+    border: 1px solid black;
+}
+
 .menu {
     width: 60%;
     height: 40%;
@@ -35,6 +48,18 @@ body {
 
 .footer {
     
+}
+
+.marginLeft {
+    margin-left: 10px;
+}
+
+.paddingTop {
+    padding-top: 10px;
+}
+
+.searchWidth {
+    width: 75%;
 }
 
 .scrollable-menu {
