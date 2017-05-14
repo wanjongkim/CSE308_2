@@ -26,12 +26,12 @@
         <div class="container extra-space-top">
             <h3>Filter by Movie Genres</h3>
             <div class="row">
-                <a class="btn btn-default" action="">COMEDY</a>
-                <a class="btn btn-default">ACTION</a>
-                <a class="btn btn-default">HORROR</a>
-                <a class="btn btn-default">DOCUMENTARY</a>
-                <a class="btn btn-default">ANIMATION</a>
-                <a class="btn btn-default">MYSTERY</a>
+                <a class="btn btn-default" href="allMovies?page=1&genreFilter=comedy">COMEDY</a>
+                <a class="btn btn-default" href="allMovies?page=1&genreFilter=action">ACTION</a>
+                <a class="btn btn-default" href="allMovies?page=1&genreFilter=horror">HORROR</a>
+                <a class="btn btn-default" href="allMovies?page=1&genreFilter=documentary">DOCUMENTARY</a>
+                <a class="btn btn-default" href="allMovies?page=1&genreFilter=animation">ANIMATION</a>
+                <a class="btn btn-default" href="allMovies?page=1&genreFilter=mystery">MYSTERY</a>
             </div>
             <hr>
             <div class="row">
@@ -42,13 +42,69 @@
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Page ${aml.currentPage} 
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu scrollable-menu" role="menu">
-                        <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
-                            <li>
-                                <a href="allMovies?page=${loop.index}">Page <c:out value = "${i}" />
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <c:if test="${aml.genre == 'all'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${aml.genre == 'comedy'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}&genreFilter=comedy">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${aml.genre == 'action'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}&genreFilter=action">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${aml.genre == 'horror'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}&genreFilter=horror">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${aml.genre == 'documentary'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}&genreFilter=documentary">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${aml.genre == 'animation'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}&genreFilter=animation">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <c:if test="${aml.genre == 'mystery'}">
+                        <ul class="dropdown-menu scrollable-menu" role="menu">
+                            <c:forEach var="i" begin="1" end="${aml.pageLimit}" varStatus="loop">
+                                <li>
+                                    <a href="allMovies?page=${loop.index}&genreFilter=mystery">Page <c:out value = "${i}" />
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </div>
             </div>
             <div class="row">
@@ -164,6 +220,82 @@
             </div>
             <div class="row">
                 <c:forEach var="movie" begin="31" end="36" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <h5>${movie.title}</h5>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="37" end="42" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <c:if test="${movie.posterPath == 'none'}">
+                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                        </c:if>
+                        <c:if test="${movie.posterPath != 'none'}">
+                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                        </c:if>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="37" end="42" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <h5>${movie.title}</h5>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="43" end="48" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <c:if test="${movie.posterPath == 'none'}">
+                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                        </c:if>
+                        <c:if test="${movie.posterPath != 'none'}">
+                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                        </c:if>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="43" end="48" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <h5>${movie.title}</h5>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="49" end="54" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <c:if test="${movie.posterPath == 'none'}">
+                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                        </c:if>
+                        <c:if test="${movie.posterPath != 'none'}">
+                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                        </c:if>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="49" end="54" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <h5>${movie.title}</h5>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="55" end="60" items="${aml.l}">
+                    <div class="col-sm-2">
+                        <c:if test="${movie.posterPath == 'none'}">
+                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                        </c:if>
+                        <c:if test="${movie.posterPath != 'none'}">
+                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                        </c:if>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="row">
+                <c:forEach var="movie" begin="55" end="60" items="${aml.l}">
                     <div class="col-sm-2">
                         <h5>${movie.title}</h5>
                     </div>

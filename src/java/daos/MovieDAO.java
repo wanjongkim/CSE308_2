@@ -5,7 +5,9 @@
  */
 package daos;
 
+import java.util.List;
 import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -17,7 +19,7 @@ import models.PlayingMovie;
  *
  * @author Shawn
  */
-@Singleton
+@Stateless
 public class MovieDAO extends AbstractDAO<Movie> {
 
     @PersistenceContext(unitName = "InDangoPU")
@@ -33,13 +35,20 @@ public class MovieDAO extends AbstractDAO<Movie> {
     }
     
     public Movie findMovie(String movieName) {
-        Query query = em.createNativeQuery("SELECT * FROM playingmovies WHERE title='" + movieName + "';", Movie.class);
+        movieName = movieName.replaceAll("'", "''");
+        Query query = em.createNativeQuery("SELECT * FROM movies WHERE title='" + movieName + "';", Movie.class);
         Movie movie = null;
+        List<Movie> l = query.getResultList();
+        if(l.size() >= 1) {
+            movie = l.get(0);
+        }
+        /*
         try {
-            movie = (Movie) query.getSingleResult();
+            movie = (Movie) query.getSingleResult(); 
         } catch(NoResultException ex) {
             return null;
         }
+        */
         return movie;
     }
     

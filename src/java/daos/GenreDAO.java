@@ -5,6 +5,9 @@
  */
 package daos;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -43,4 +46,16 @@ public class GenreDAO extends AbstractDAO<Genre> {
         return genre;
     }
     
+    public List findFilteredMovies(String filter) {
+        Query query = em.createNativeQuery("SELECT * FROM genre WHERE genre LIKE '%" + filter + "%';", Genre.class);
+        List<Genre> l = query.getResultList();
+        List<Movie> filteredMovies = new ArrayList();
+        for(Genre g : l) {
+            Set<Movie> s = g.getMovieSet();
+            for(Movie m : s) {
+                filteredMovies.add(m);
+            }
+        }
+        return filteredMovies;
+    }
 }

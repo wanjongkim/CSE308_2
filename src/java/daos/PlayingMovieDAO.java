@@ -38,6 +38,7 @@ public class PlayingMovieDAO extends AbstractDAO<PlayingMovie> {
     }
     
     public PlayingMovie findMovie(String movieName) {
+        movieName = movieName.replaceAll("'", "''");
         Query query = em.createNativeQuery("SELECT * FROM playingmovies WHERE title='" + movieName + "';", PlayingMovie.class);
         PlayingMovie movie = null;
         try {

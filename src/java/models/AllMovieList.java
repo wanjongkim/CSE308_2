@@ -16,13 +16,15 @@ public class AllMovieList implements Serializable {
     private List l;
     private int pageLimit;
     private int currentPage;
+    private String genre;
     public AllMovieList() {
         
     }
-    public AllMovieList(List l, int pageLimit, int currentPage) {
+    public AllMovieList(List l, int pageLimit, int currentPage, String genre) {
         this.l = l;
         this.pageLimit = pageLimit;
         this.currentPage = currentPage;
+        this.genre = genre;
     }
 
     /**
@@ -65,6 +67,20 @@ public class AllMovieList implements Serializable {
      */
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+    }
+
+    /**
+     * @return the genre
+     */
+    public String getGenre() {
+        return genre;
+    }
+
+    /**
+     * @param genre the genre to set
+     */
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
     
 }

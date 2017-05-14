@@ -5,6 +5,7 @@
  */
 package managers;
 
+import daos.GenreDAO;
 import daos.MovieDAO;
 import daos.PlayingMovieDAO;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import models.Genre;
 import models.Movie;
 import models.PlayingMovie;
 
@@ -28,15 +30,29 @@ public class MovieManager implements ServletContextListener{
     PlayingMovieDAO pmd;
     @EJB
     MovieDAO mDAO;
+    @EJB
+    GenreDAO gDAO;
     
     private List<Movie> allMovies;
     private List<PlayingMovie> currentlyPlaying;
+    private List<Movie> comedy;
+    private List<Movie> action;
+    private List<Movie> horror;
+    private List<Movie> documentary;
+    private List<Movie> animation;
+    private List<Movie> mystery;
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         sce.getServletContext().setAttribute("movieManager", this);
         currentlyPlaying = pmd.findAll();
         allMovies = mDAO.findAll();
+        comedy = getFilteredMovies("comedy");
+        action = getFilteredMovies("action");
+        horror = getFilteredMovies("horror");
+        documentary = getFilteredMovies("documentary");
+        animation = getFilteredMovies("animation");
+        mystery = getFilteredMovies("mystery");
     }
 
     @Override
@@ -50,6 +66,12 @@ public class MovieManager implements ServletContextListener{
     
     public List<Movie> getAllMovies() {
         return allMovies;
+    }
+    
+    public List<Movie> getFilteredMovies(String filter) {
+        //find the filter movies
+        List<Movie> l = gDAO.findFilteredMovies(filter);
+        return l;
     }
     
     public PlayingMovie findMovie(String movieName) {
@@ -78,6 +100,48 @@ public class MovieManager implements ServletContextListener{
     
     public void update(PlayingMovie movie) {
         pmd.edit(movie);
+    }
+
+    /**
+     * @return the comedy
+     */
+    public List<Movie> getComedy() {
+        return comedy;
+    }
+
+    /**
+     * @return the action
+     */
+    public List<Movie> getAction() {
+        return action;
+    }
+
+    /**
+     * @return the horror
+     */
+    public List<Movie> getHorror() {
+        return horror;
+    }
+
+    /**
+     * @return the documentary
+     */
+    public List<Movie> getDocumentary() {
+        return documentary;
+    }
+
+    /**
+     * @return the animation
+     */
+    public List<Movie> getAnimation() {
+        return animation;
+    }
+
+    /**
+     * @return the mystery
+     */
+    public List<Movie> getMystery() {
+        return mystery;
     }
     
 }

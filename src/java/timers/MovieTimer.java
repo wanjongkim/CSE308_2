@@ -223,7 +223,10 @@ public class MovieTimer {
                     continue;
                 }
                 Movie pm = new Movie(title, "0", releaseDate, runtime, overview, homepage, posterPath, imdbID, status, 0, trailerPath, imagePaths, videoPaths);
-                
+                Movie mm = mDAO.findMovie(title);
+                if(mm != null) {
+                    continue;
+                }
                 Genre gen = gDAO.findGenre(genre);
                 if(genre == null) {
                     gen = gDAO.findGenre("none");
