@@ -24,18 +24,23 @@
         <%@include file="header.jsp" %>
         <jsp:useBean id="aml" class="models.AllMovieList" scope="request" />
         <div class="container extra-space-top">
-            <div class="row">
-                <h3 class="fjalla">Filter by Movie Genres</h3>
-            </div>
-            <div class="row">
-                <a class="btn btn-default" href="allMovies?page=1&genreFilter=comedy">COMEDY</a>
-                <a class="btn btn-default" href="allMovies?page=1&genreFilter=action">ACTION</a>
-                <a class="btn btn-default" href="allMovies?page=1&genreFilter=horror">HORROR</a>
-                <a class="btn btn-default" href="allMovies?page=1&genreFilter=documentary">DOCUMENTARY</a>
-                <a class="btn btn-default" href="allMovies?page=1&genreFilter=animation">ANIMATION</a>
-                <a class="btn btn-default" href="allMovies?page=1&genreFilter=mystery">MYSTERY</a>
+            <div style="margin-left: 13px;">
+                <div class="row">
+                    <h3 class="fjalla">Filter by Movie Genres</h3>
+                </div>
+                <div class="row">
+                    <a class="btn btn-default" href="allMovies?page=1&genreFilter=comedy">COMEDY</a>
+                    <a class="btn btn-default" href="allMovies?page=1&genreFilter=action">ACTION</a>
+                    <a class="btn btn-default" href="allMovies?page=1&genreFilter=horror">HORROR</a>
+                    <a class="btn btn-default" href="allMovies?page=1&genreFilter=documentary">DOCUMENTARY</a>
+                    <a class="btn btn-default" href="allMovies?page=1&genreFilter=animation">ANIMATION</a>
+                    <a class="btn btn-default" href="allMovies?page=1&genreFilter=mystery">MYSTERY</a>
+                </div>
             </div>
             <hr>
+        </div>
+
+        <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Page ${aml.currentPage} 
@@ -108,28 +113,20 @@
                 </div>
             </div>
             <br>
-
-
             <div class="row">
                 <c:forEach var="movie" begin="0" end="5" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <a href="something">
+                            <a href="movie/${movie.title}">
                                 <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225">
                             </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <a href="something">
+                            <a href="movie/${movie.title}">
                                 <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225">
                             </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="0" end="5" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -137,18 +134,16 @@
                 <c:forEach var="movie" begin="6" end="11" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="12" end="17" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -156,18 +151,16 @@
                 <c:forEach var="movie" begin="12" end="17" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="12" end="17" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -175,18 +168,16 @@
                 <c:forEach var="movie" begin="18" end="23" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="18" end="23" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -194,18 +185,16 @@
                 <c:forEach var="movie" begin="24" end="29" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="24" end="29" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -213,18 +202,16 @@
                 <c:forEach var="movie" begin="30" end="35" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="30" end="35" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -232,18 +219,16 @@
                 <c:forEach var="movie" begin="36" end="41" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="36" end="41" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -251,18 +236,16 @@
                 <c:forEach var="movie" begin="42" end="47" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="42" end="47" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -270,18 +253,16 @@
                 <c:forEach var="movie" begin="48" end="53" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="48" end="53" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>
@@ -289,18 +270,16 @@
                 <c:forEach var="movie" begin="54" end="59" items="${aml.l}">
                     <div class="col-sm-2">
                         <c:if test="${movie.posterPath == 'none'}">
-                            <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="http://i.imgur.com/s0QzMrl.jpg" width="175" height="225" />
+                            </a>
                         </c:if>
                         <c:if test="${movie.posterPath != 'none'}">
-                            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            <a href="movie/${movie.title}">
+                                <img class="img-fluid" src="https://image.tmdb.org/t/p/w500${movie.posterPath}" width="175" height="225" />
+                            </a>
                         </c:if>
-                    </div>
-                </c:forEach>
-            </div>
-            <div class="row">
-                <c:forEach var="movie" begin="54" end="59" items="${aml.l}">
-                    <div class="col-sm-2">
-                        <h5>${movie.title}</h5>
+                        <h4 class="fjalla">${movie.title}</h4>
                     </div>
                 </c:forEach>
             </div>

@@ -31,6 +31,25 @@ body {
     height: 40%;
 }
 
+.blackBorder {
+    border: 1px solid black;;
+}
+
+.threeBlackBorder {
+    border-top: 1px solid black; 
+    border-bottom: 1px solid black; 
+    border-right: 1px solid black;
+}
+
+.horizontalBlackBorder {
+    border-top: 1px solid black; 
+    border-bottom: 1px solid black; 
+}
+
+.img-responsive2 {
+    max-width: 50%;
+}
+
 .poster {
     width: 25%;
     height: 30%;

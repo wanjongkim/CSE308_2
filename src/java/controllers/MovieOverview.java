@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import managers.MovieManager;
 import models.Movie;
+import models.MovieType;
 import models.PicVideo;
 import models.PlayingMovie;
 
@@ -39,22 +40,36 @@ public class MovieOverview extends HttpServlet {
         HttpSession sess = request.getSession();
         RequestDispatcher dispatcher = request.getRequestDispatcher(movieOverview);
         if(pm != null) {
-            pm.setRuntime(convert(pm.getRuntime()));
+            if(!pm.getRuntime().equalsIgnoreCase("unknown")) {
+                pm.setRuntime(convert(pm.getRuntime()));
+            }
             sess.setAttribute("movie", pm);
-            //put pictures and videos into something
             String pics = pm.getPicture();
             String vids = pm.getVideo();
             ArrayList converted = convertPicString(pics);
             ArrayList converted1 = convertVidString(vids);
             PicVideo pv = new PicVideo(converted, converted1);
             sess.setAttribute("pv", pv);
+            MovieType mt = new MovieType("pm");
+            sess.setAttribute("mt", mt);
             dispatcher.forward(request, response);
             return;
         }
         else {
             Movie m = mm.findMovie2(movie);
             if(m != null) {
-                sess.setAttribute("movie", m);
+                if(!m.getRuntime().equalsIgnoreCase("unknown")) {
+                    m.setRuntime(convert(m.getRuntime()));
+                }
+                sess.setAttribute("movie2", m);
+                String pics = m.getImage();
+                String vids = m.getVideo();
+                ArrayList converted = convertPicString(pics);
+                ArrayList converted1 = convertVidString(vids);
+                PicVideo pv = new PicVideo(converted, converted1);
+                sess.setAttribute("pv", pv);
+                MovieType mt = new MovieType("m");
+                sess.setAttribute("mt", mt);
                 dispatcher.forward(request, response);
                 return;
             }

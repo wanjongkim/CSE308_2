@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,17 @@ import java.util.List;
  *
  * @author Shawn
  */
-public class PicVideo {
-    private List picList = new ArrayList();
-    private List vidList = new ArrayList();
+public class PicVideo implements Serializable {
+    private List picList;
+    private List vidList;
+    
+    public PicVideo() {
+        
+    }
+    
+    public PicVideo(ArrayList picList) {
+        this.picList = picList;
+    }
     
     public PicVideo(ArrayList picList, ArrayList vidList) {
         this.picList = picList;

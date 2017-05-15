@@ -33,7 +33,10 @@ public class Search extends HttpServlet {
         int numMovies = l.size();
         for(Movie m : l) {
             String runtime = m.getRuntime();
-            String converted = convert(runtime);
+            String converted = "";
+            if(!runtime.equalsIgnoreCase("unknown")) {
+                converted = convert(runtime);
+            }
             m.setRuntime(converted);
         }
         SearchResult sr = new SearchResult(l, numMovies, capitalizedSQ);
